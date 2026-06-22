@@ -1,0 +1,27 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = 'if G.GAME.stake > 2 then'
+position = "at"
+payload = "if (G.GAME.stake > 1 and G.GAME.stake <= 8) or (G.GAME.stake > 9 and G.GAME.stake <= 16) or (G.GAME.stake > 17 and G.GAME.stake <= 24) then"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+G.GAME.stake > 1 and {
+  label = localize('b_stake'),
+  tab_definition_function = G.UIDEF.current_stake,
+} or nil,'''
+position = "at"
+payload = '''
+{
+  label = localize('b_stake'),
+  tab_definition_function = G.UIDEF.current_stake,
+},'''
+match_indent = true

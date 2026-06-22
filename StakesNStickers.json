@@ -1,0 +1,19 @@
+{
+  "id": "stakes_n_stickers",
+  "name": "Stakes 'n Stickers",
+  "display_name": "Stakes 'n Stickers",
+  "author": [
+    "NeuralSixty",
+    "Phylanth"
+  ],
+  "description": "Rebalances gameplay dynamics with new Stakes and Stickers",
+  "prefix": "sns",
+  "main_file": "main.lua",
+  "priority": 0,
+  "badge_colour": "AC3232",
+  "badge_text_colour": "FFFFFF",
+  "version": "1.0.0",
+  "dependencies": [
+    "Steamodded (>=1.0.0~BETA-1620a)"
+  ]
+}
