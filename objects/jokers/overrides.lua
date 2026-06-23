@@ -3340,6 +3340,8 @@ SMODS.Joker:take_ownership('mr_bones', {
   calculate = function(self, card, context)
     if context.end_of_round and context.game_over and context.main_eval then
       if G.GAME.chips / G.GAME.blind.chips >= (card.ability.extra.saved_threshold / card.ability.extra.current_factor) then
+        card.ability.saved_from_game_over = true
+
         G.E_MANAGER:add_event(Event({
           func = function()
             G.hand_text_area.blind_chips:juice_up()
