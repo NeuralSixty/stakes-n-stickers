@@ -1,3 +1,30 @@
+local decrease_toxic_exposure = function(card)
+  local jokers = card.area.cards
+  local cardIndex = card.rank
+  local left_joker = jokers[cardIndex - 1]
+  local right_joker = jokers[cardIndex + 1]
+
+  if card.ability.extra.toxic_stack > 0 and (card.debuff and not (card.ability.sns_delayed and card.ability.sns_delay_tally ~= 0)) or (card.ability.extra.toxic_stack > 0 and ((not left_joker or (left_joker and not left_joker.ability.sns_toxic)) and (not right_joker or (not right_joker.ability.sns_toxic)))) then
+    card.ability.extra.toxic_stack = card.ability.extra.toxic_stack - 1
+
+    if card.ability.extra.toxic_stack == 0 then
+      card:remove_sticker('sns_toxic_stack_one')
+      card:remove_sticker('sns_toxic_stack_two')
+    end
+    if card.ability.extra.toxic_stack == 1 then
+      card:add_sticker('sns_toxic_stack_one')
+      card:remove_sticker('sns_toxic_stack_two')
+    end
+    if card.ability.extra.toxic_stack == 2 then
+      card:add_sticker('sns_toxic_stack_two')
+      card:remove_sticker('sns_toxic_stack_one')
+    end
+
+    card_eval_status_text(card, 'extra', nil, nil, nil,
+      { message = localize('k_toxic_minus_one'), colour = G.C.FILTER, delay = 0.45 })
+  end
+end
+
 SMODS.Sticker {
   key = 'toxic',
   atlas = 'sns_stickers_atlas',
@@ -85,26 +112,6 @@ SMODS.Sticker {
           end
         end
       end
-
-      if card.ability.extra.toxic_stack > 0 and (card.debuff and not (card.ability.sns_delayed and card.ability.sns_delay_tally ~= 0)) or (card.ability.extra.toxic_stack > 0 and ((not left_joker or (left_joker and not left_joker.ability.sns_toxic)) and (not right_joker or (not right_joker.ability.sns_toxic)))) then
-        card.ability.extra.toxic_stack = card.ability.extra.toxic_stack - 1
-
-        if card.ability.extra.toxic_stack == 0 then
-          card:remove_sticker('sns_toxic_stack_one')
-          card:remove_sticker('sns_toxic_stack_two')
-        end
-        if card.ability.extra.toxic_stack == 1 then
-          card:add_sticker('sns_toxic_stack_one')
-          card:remove_sticker('sns_toxic_stack_two')
-        end
-        if card.ability.extra.toxic_stack == 2 then
-          card:add_sticker('sns_toxic_stack_two')
-          card:remove_sticker('sns_toxic_stack_one')
-        end
-
-        card_eval_status_text(card, 'extra', nil, nil, nil,
-          { message = localize('k_toxic_minus_one'), colour = G.C.FILTER, delay = 0.45 })
-      end
     end
   end
 }
@@ -122,6 +129,11 @@ SMODS.Sticker {
   },
   should_apply = function(self, card, center, area, bypass_roll)
     return card.ability and card.ability.set == "Joker" and card.ability.extra and card.ability.extra.toxic_stack == 1
+  end,
+  calculate = function(self, card, context)
+    if context.end_of_round and not context.repetition and not context.individual then
+      decrease_toxic_exposure(card)
+    end
   end
 }
 
@@ -138,5 +150,10 @@ SMODS.Sticker {
   },
   should_apply = function(self, card, center, area, bypass_roll)
     return card.ability and card.ability.set == "Joker" and card.ability.extra and card.ability.extra.toxic_stack == 2
+  end,
+  calculate = function(self, card, context)
+    if context.end_of_round and not context.repetition and not context.individual then
+      decrease_toxic_exposure(card)
+    end
   end
 }
