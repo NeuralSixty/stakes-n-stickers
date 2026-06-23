@@ -32,7 +32,7 @@ Sticker art by Phylanth.
 
 ## Summary
 
-Stakes 'n Stickers is a vanilla-plus rebalancing mod that focuses on adding and modifying Stakes in order to focus exclusively on Stickers. In other words, each Stake is associated with a Sticker. These new Stickers allow for more complex gameplay dynamics, specially on later Stakes.
+Stakes 'n Stickers is a vanilla-plus rebalancing mod that focuses on adding and modifying Stakes in order to focus exclusively on Stickers. In other words, each Stake is associated with a Sticker. These new Stickers allow for more complex gameplay dynamics, especially on later Stakes.
 
 Below is the theory that serves as the foundation for developing this mod. Feel free to read it to its entirety or jump straight into playing!
 
