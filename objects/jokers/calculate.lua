@@ -90,7 +90,7 @@ SMODS.current_mod.calculate = function(self, context)
       end
 
       -- Delayed Sticker logic -> Deals with adding and removing debuffs, can't be done inside a regular Delayed Sticker calculate function
-      if card.ability.sns_delayed and card.ability.sns_delay_tally > 0 then
+      if card.ability.sns_delayed and card.ability.sns_delay_tally > 0 and (card.ability.debuff_sources and not card.ability.debuff_sources['toxic']) then
         if card.ability.sns_delay_tally == 1 then
           card.ability.sns_delay_tally = 0
           card.ability.sns_delayed = nil
