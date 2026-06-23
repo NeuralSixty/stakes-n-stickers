@@ -177,7 +177,7 @@ Legendary Jokers do not spawn with any stickers (whether vanilla or non-vanilla)
 
 Further emergent complexity is provided by the following sticker synergies on the same card, as well as some design decisions that led to the synergies existing:
 
-- Eternal + Perishable (possible on this mod): Becomes negative when debuffed.
+- Eternal + Perishable (possible on this mod): Becomes negative when debuffed; Invisible Joker and Ankh cannot remove this negative on the copy.
 - Delayed + Perishable, Rental, Toxic or Supercritical: Perishable, Rental, Toxic and Supercritical do not come into effect until the card is active.
 - Eternal + Supercritical: Cannot destroy itself. Repeats supercritical cycle.
 - Perishable + Supercritical: Supercritical effect after 5 rounds does not trigger if Joker would also be debuffed by then.
