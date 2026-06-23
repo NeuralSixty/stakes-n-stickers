@@ -28,6 +28,21 @@ SMODS.Sticker {
       info_queue[#info_queue + 1] = G.P_CENTERS[card.config.center_key]
     end
 
-    return { vars = { card.ability.delayed_rounds or 3, card.ability.sns_delay_tally or delayed_rounds } }
+    local is_debuffed_by_toxic = card.ability.debuff_sources and card.ability.debuff_sources['toxic']
+    local delayed_tally_remaining_info = card.ability.sns_delay_tally or delayed_rounds .. ""
+    local delayed_additional_info = " remaining"
+
+    if is_debuffed_by_toxic then
+      delayed_tally_remaining_info = ""
+      delayed_additional_info = "Toxified - can't activate"
+    end
+
+    return {
+      vars = {
+        card.ability.delayed_rounds or 3,
+        delayed_tally_remaining_info,
+        delayed_additional_info
+      }
+    }
   end
 }

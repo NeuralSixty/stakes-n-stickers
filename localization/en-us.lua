@@ -464,7 +464,7 @@ return {
         text = {
           "Debuffed on puchase",
           "for {C:attention}#1#{} rounds",
-          "{C:inactive}({C:attention}#2#{C:inactive} remaining)",
+          "{C:inactive}({C:attention}#2#{C:inactive}#3#)",
           "Effects doubled on activation",
         },
       },
