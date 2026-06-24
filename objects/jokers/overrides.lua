@@ -638,6 +638,19 @@ SMODS.Joker:take_ownership('8_ball', {
     if context.individual and context.cardarea == G.play and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
       if (context.other_card:get_id() == 8) and SMODS.pseudorandom_probability(card, 'sns_8ball', 1, card.ability.extra.odds) then
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + card.ability.extra.current_factor
+        local should_allow_duplicates = false
+        local tarot_count = 0
+
+        for _, consumable in ipairs(G.consumeables.cards) do
+          if consumable.ability.set == "Tarot" then
+            tarot_count = tarot_count + 1
+          end
+        end
+
+        if card.ability.extra.current_factor > #G.P_CENTER_POOLS.Tarot - tarot_count then
+          should_allow_duplicates = true
+        end
+
         return {
           extra = {
             message = localize { type = 'variable', key = 'a_plus_tarot', vars = { card.ability.extra.current_factor, localize("k_tarot") } },
@@ -648,7 +661,8 @@ SMODS.Joker:take_ownership('8_ball', {
                   func = (function()
                     SMODS.add_card {
                       set = 'Tarot',
-                      key_append = 'sns_8_ball'
+                      key_append = 'sns_8_ball',
+                      allow_duplicates = should_allow_duplicates
                     }
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
                     return true
@@ -1503,13 +1517,26 @@ SMODS.Joker:take_ownership('sixth_sense', {
     if context.destroy_card and not context.blueprint then
       if #context.full_hand == 1 and context.destroy_card == context.full_hand[1] and context.full_hand[1]:get_id() == 6 and G.GAME.current_round.hands_played == 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + card.ability.extra.current_factor
+        local should_allow_duplicates = false
+        local spectral_count = 0
+
+        for _, consumable in ipairs(G.consumeables.cards) do
+          if consumable.ability.set == "Spectral" then
+            spectral_count = spectral_count + 1
+          end
+        end
+
+        if card.ability.extra.current_factor > #G.P_CENTER_POOLS.Spectral - spectral_count then
+          should_allow_duplicates = true
+        end
 
         for i = 1, card.ability.extra.current_factor do
           G.E_MANAGER:add_event(Event({
             func = (function()
               SMODS.add_card {
                 set = 'Spectral',
-                key_append = 'sns_sixth_sense'
+                key_append = 'sns_sixth_sense',
+                allow_duplicates = should_allow_duplicates
               }
               G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
               return true
@@ -1680,13 +1707,26 @@ SMODS.Joker:take_ownership('superposition', {
       end
       if ace_check then
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + card.ability.extra.current_factor
+        local should_allow_duplicates = false
+        local tarot_count = 0
+
+        for _, consumable in ipairs(G.consumeables.cards) do
+          if consumable.ability.set == "Tarot" then
+            tarot_count = tarot_count + 1
+          end
+        end
+
+        if card.ability.extra.current_factor > #G.P_CENTER_POOLS.Tarot - tarot_count then
+          should_allow_duplicates = true
+        end
 
         for i = 1, card.ability.extra.current_factor do
           G.E_MANAGER:add_event(Event({
             func = (function()
               SMODS.add_card {
                 set = 'Tarot',
-                key_append = 'sns_superposition'
+                key_append = 'sns_superposition',
+                allow_duplicates = should_allow_duplicates
               }
               G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
               return true
@@ -1939,13 +1979,26 @@ SMODS.Joker:take_ownership('seance', {
     if context.joker_main and next(context.poker_hands[card.ability.extra.poker_hand]) and
         #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
       G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + card.ability.extra.current_factor
+      local should_allow_duplicates = false
+      local spectral_count = 0
+
+      for _, consumable in ipairs(G.consumeables.cards) do
+        if consumable.ability.set == "Spectral" then
+          spectral_count = spectral_count + 1
+        end
+      end
+
+      if card.ability.extra.current_factor > #G.P_CENTER_POOLS.Spectral - spectral_count then
+        should_allow_duplicates = true
+      end
 
       for i = 1, card.ability.extra.current_factor do
         G.E_MANAGER:add_event(Event({
           func = (function()
             SMODS.add_card {
               set = 'Spectral',
-              key_append = 'sns_seance'
+              key_append = 'sns_seance',
+              allow_duplicates = should_allow_duplicates
             }
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
             return true
@@ -1986,7 +2039,7 @@ SMODS.Joker:take_ownership('riff_raff', {
               discover = true,
               key_append = 'sns_riff_raff',
             }
-            G.GAME.joker_buffer = 0
+            G.GAME.joker_buffer = G.GAME.joker_buffer - 1
           end
           return true
         end
@@ -2123,13 +2176,26 @@ SMODS.Joker:take_ownership('vagabond', {
         #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
       if G.GAME.dollars <= card.ability.extra.dollars then
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + card.ability.extra.current_factor
+        local should_allow_duplicates = false
+        local tarot_count = 0
+
+        for _, consumable in ipairs(G.consumeables.cards) do
+          if consumable.ability.set == "Tarot" then
+            tarot_count = tarot_count + 1
+          end
+        end
+
+        if card.ability.extra.current_factor > #G.P_CENTER_POOLS.Tarot - tarot_count then
+          should_allow_duplicates = true
+        end
 
         for i = 1, card.ability.extra.current_factor do
           G.E_MANAGER:add_event(Event({
             func = (function()
               SMODS.add_card {
                 set = 'Tarot',
-                key_append = 'sns_vagabond'
+                key_append = 'sns_vagabond',
+                allow_duplicates = should_allow_duplicates
               }
               G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
               return true
@@ -2615,6 +2681,18 @@ SMODS.Joker:take_ownership('hallucination', {
     if context.open_booster and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
       if SMODS.pseudorandom_probability(card, 'sns_hallucination' .. G.GAME.round_resets.ante, 1, card.ability.extra.odds) then
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + card.ability.extra.current_factor
+        local should_allow_duplicates = false
+        local tarot_count = 0
+
+        for _, consumable in ipairs(G.consumeables.cards) do
+          if consumable.ability.set == "Tarot" then
+            tarot_count = tarot_count + 1
+          end
+        end
+
+        if card.ability.extra.current_factor > #G.P_CENTER_POOLS.Tarot - tarot_count then
+          should_allow_duplicates = true
+        end
 
         for i = 1, card.ability.extra.current_factor do
           G.E_MANAGER:add_event(Event({
@@ -2623,9 +2701,10 @@ SMODS.Joker:take_ownership('hallucination', {
             func = (function()
               SMODS.add_card {
                 set = 'Tarot',
-                key_append = 'sns_hallucination'
+                key_append = 'sns_hallucination',
+                allow_duplicates = should_allow_duplicates
               }
-              G.GAME.consumeable_buffer = 0
+              G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
               return true
             end)
           }))
@@ -4764,6 +4843,18 @@ SMODS.Joker:take_ownership('cartomancer', {
   calculate = function(self, card, context)
     if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
       G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + card.ability.extra.current_factor
+      local should_allow_duplicates = false
+      local tarot_count = 0
+
+      for _, consumable in ipairs(G.consumeables.cards) do
+        if consumable.ability.set == "Tarot" then
+          tarot_count = tarot_count + 1
+        end
+      end
+
+      if card.ability.extra.current_factor > #G.P_CENTER_POOLS.Tarot - tarot_count then
+        should_allow_duplicates = true
+      end
 
       for i = 1, card.ability.extra.current_factor do
         G.E_MANAGER:add_event(Event({
@@ -4772,7 +4863,8 @@ SMODS.Joker:take_ownership('cartomancer', {
               func = function()
                 SMODS.add_card {
                   set = 'Tarot',
-                  key_append = 'sns_cartomancer'
+                  key_append = 'sns_cartomancer',
+                  allow_duplicates = should_allow_duplicates
                 }
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
                 return true
