@@ -3654,31 +3654,19 @@ SMODS.Joker:take_ownership('smeared', {
   sns_delayed_compat = false,
   sns_toxic_compat = true,
   sns_supercritical_compat = false,
-  config = { extra = { toxic_stack = 0 } },
-  locked_loc_vars = function(self, info_queue, card)
-    return { vars = { 3, localize { type = 'name_text', key = 'm_wild', set = 'Enhanced' } } }
-  end,
-  check_for_unlock = function(self, args)
-    if args.type == 'modify_deck' then
-      local count = 0
-      for _, playing_card in ipairs(G.playing_cards or {}) do
-        if SMODS.has_enhancement(playing_card, 'm_wild') then count = count + 1 end
-        if count >= 3 then
-          return true
-        end
-      end
-    end
-    return false
-  end
+  config = { extra = { toxic_stack = 0 } }
 }, true)
 
-local card_is_suit_ref = Card.is_suit
-function Card:is_suit(suit, bypass_debuff, flush_calc)
-  local ret = card_is_suit_ref(self, suit, bypass_debuff, flush_calc)
-  if not ret and not SMODS.has_no_suit(self) and next(SMODS.find_card("j_smeared")) then
-    return SMODS.smeared_check(self, suit)
-  end
-  return ret
+local smods_smeared_check_ref = SMODS.smeared_check
+function SMODS.smeared_check(card, suit, ...)
+    if next(SMODS.find_card("j_smeared")) then
+        if ((card.base.suit == 'Hearts' or card.base.suit == 'Diamonds') and (suit == 'Hearts' or suit == 'Diamonds')) then
+            return true
+        elseif (card.base.suit == 'Spades' or card.base.suit == 'Clubs') and (suit == 'Spades' or suit == 'Clubs') then
+            return true
+        end
+    end
+    return smods_smeared_check_ref(card, suit, ...)
 end
 
 SMODS.Joker:take_ownership('throwback', {
