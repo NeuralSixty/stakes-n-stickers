@@ -1028,7 +1028,11 @@ SMODS.Joker:take_ownership('gros_michel', {
         }
       else
         return {
-          message = localize('k_safe_ex')
+          message = localize('k_safe_ex'),
+          func = function()
+            SMODS.calculate_context({ gros_michel_safe = true, gros_michel_card = card })
+            return true
+          end
         }
       end
     end
