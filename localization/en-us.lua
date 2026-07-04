@@ -462,7 +462,7 @@ return {
       sns_delayed = {
         name = "Delayed",
         text = {
-          "Debuffed on puchase",
+          "Debuffed on purchase",
           "for {C:attention}#1#{} rounds",
           "{C:inactive}({C:attention}#2#{C:inactive}#3#)",
           "Effects doubled on activation",
