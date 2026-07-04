@@ -67,7 +67,7 @@ local calculate_toxic_exposure_increase = function(card, left_joker, right_joker
 end
 
 local calculate_toxic_exposure_decrease = function(card, left_joker, right_joker)
-  if card.ability.extra.toxic_stack > 0 and ((not left_joker or (left_joker and not left_joker.ability.sns_toxic or (left_joker.ability.sns_delayed and left_joker.ability.sns_delay_tally > 0))) and (not right_joker or (right_joker and not right_joker.ability.sns_toxic or (right_joker.ability.sns_delayed and right_joker.ability.sns_delay_tally > 0)))) then
+  if card.ability.extra.toxic_stack > 0 and ((card.debuff and card.ability.perishable and card.ability.perish_tally == 0) or ((not left_joker or (left_joker and not left_joker.ability.sns_toxic or (left_joker.ability.sns_delayed and left_joker.ability.sns_delay_tally > 0))) and (not right_joker or (right_joker and not right_joker.ability.sns_toxic or (right_joker.ability.sns_delayed and right_joker.ability.sns_delay_tally > 0))))) then
     card.ability.extra.toxic_stack = card.ability.extra.toxic_stack - 1
 
     if card.ability.extra.toxic_stack == 0 then
