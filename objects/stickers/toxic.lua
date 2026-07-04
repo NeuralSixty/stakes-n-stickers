@@ -51,7 +51,7 @@ SMODS.Sticker {
       if card.ability.sns_toxic and not (card.debuff and card.ability.sns_delayed and card.ability.sns_delay_tally ~= 0) then
         -- "saved_from_game_over" handles an extreme edge case where Mr. Bones saves the run from ending but still gets affected by Toxic Jokers
         -- There's a time frame where it gets disabled before the card starts dissolving, which might confuse players
-        if left_joker and not left_joker.ability.saved_from_game_over and (not left_joker.debuff or (left_joker.debuff and (left_joker.ability.debuff_sources and not left_joker.ability.debuff_sources['toxic']) and (left_joker.ability.sns_delayed and left_joker.ability.sns_delay_tally ~= 0))) then
+        if left_joker and not left_joker.ability.saved_from_game_over and (not left_joker.debuff or (left_joker.debuff and left_joker.ability.crimson_heart_chosen) or (left_joker.debuff and (left_joker.ability.debuff_sources and not left_joker.ability.debuff_sources['toxic']) and (left_joker.ability.sns_delayed and left_joker.ability.sns_delay_tally ~= 0))) then
           left_joker.ability.extra.toxic_stack = left_joker.ability.extra.toxic_stack + 1
           if left_joker.ability.extra.toxic_stack == 1 then
             left_joker:add_sticker('sns_toxic_stack_one')
@@ -81,7 +81,7 @@ SMODS.Sticker {
           end
         end
 
-        if right_joker and (not right_joker.debuff or (right_joker.debuff and (right_joker.ability.debuff_sources and not right_joker.ability.debuff_sources['toxic']) and (right_joker.ability.sns_delayed and right_joker.ability.sns_delay_tally ~= 0))) then
+        if right_joker and (not right_joker.debuff or (right_joker.debuff and right_joker.ability.crimson_heart_chosen) or (right_joker.debuff and (right_joker.ability.debuff_sources and not right_joker.ability.debuff_sources['toxic']) and (right_joker.ability.sns_delayed and right_joker.ability.sns_delay_tally ~= 0))) then
           right_joker.ability.extra.toxic_stack = right_joker.ability.extra.toxic_stack + 1
 
           if right_joker.ability.extra.toxic_stack == 1 then
