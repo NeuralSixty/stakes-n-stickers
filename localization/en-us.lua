@@ -94,6 +94,15 @@ return {
           "played {C:attention}poker hand{} {C:attention}#3# #4#{}",
         },
       },
+      j_oops = {
+        name = "Oops! All 6s",
+        text = {
+          "Multiplies all {C:attention}listed",
+          "{C:green,E:1,S:1.1}probabilities by #1#",
+          "{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}2 in 3{C:inactive}",
+          "{C:inactive}if multiplied by 2)"
+        },
+      },
       j_dna = {
         name = "DNA",
         text = {
@@ -233,6 +242,14 @@ return {
           "the first {C:attention}discarded",
           "poker hand each round",
           "{C:attention}#1# #2#"
+        },
+      },
+      j_business = {
+        name = "Business Card",
+        text = {
+          "Played {C:attention}face{} cards have",
+          "a {C:green}#1# in #2#{} chance to",
+          "give {C:money}$#3#{} when scored",
         },
       },
       j_drivers_license = {
