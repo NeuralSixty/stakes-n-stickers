@@ -2471,7 +2471,11 @@ SMODS.Joker:take_ownership('gift', {
       end
       return {
         message = localize('k_val_up'),
-        colour = G.C.MONEY
+        colour = G.C.MONEY,
+        func = function()
+          SMODS.calculate_context({ gift_card_gifted = true, gift_card = card })
+          return true
+        end
       }
     end
   end

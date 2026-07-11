@@ -15,7 +15,11 @@ SMODS.Sticker {
         ((supercritical_roll > 0.4) and (supercritical_roll <= 0.7)) and (area == G.shop_jokers or area == G.pack_cards)
   end,
   calculate = function(self, card, context)
-    if context.end_of_round and not context.repetition and not context.individual and card.config.center_key ~= 'j_gros_michel' or (card.config.center_key == 'j_gros_michel' and context.gros_michel_safe and context.gros_michel_card == card) then
+    if ((context.end_of_round and not context.repetition and not context.individual and card.config.center_key ~= 'j_gift' and card.config.center_key ~= 'j_gros_michel')
+      or (card.config.center_key == 'j_gift' and context.gift_card_gifted and context.gift_card == card)
+      or (card.config.center_key == 'j_gros_michel' and context.gros_michel_safe and context.gros_michel_card == card)
+    )
+    then
       local last_factor = card.ability.extra.current_factor;
 
       card.ability.extra.supercritical_stage = card.ability.extra.supercritical_stage + 1
