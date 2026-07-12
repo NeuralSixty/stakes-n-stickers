@@ -1825,7 +1825,11 @@ SMODS.Joker:take_ownership('cavendish', {
         }
       else
         return {
-          message = localize('k_safe_ex')
+          message = localize('k_safe_ex'),
+          func = function()
+            SMODS.calculate_context({ cavendish_safe = true, cavendish_card = card })
+            return true
+          end
         }
       end
     end
