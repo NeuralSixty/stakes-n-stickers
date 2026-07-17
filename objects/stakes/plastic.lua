@@ -49,5 +49,5 @@ SMODS.Stake:take_ownership('gold', {
   modifiers = function()
     G.GAME.modifiers.enable_sns_supercritical = true
   end,
-  shiny = false,
+  shiny = true
 })
