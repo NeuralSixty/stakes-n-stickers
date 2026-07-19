@@ -1,0 +1,11 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local extrafunc = nil"
+position = "at"
+payload = "local extrafunc = extra and extra.extrafunc"
+match_indent = true

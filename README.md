@@ -22,6 +22,8 @@ Sticker art by Phylanth.
     - [Toxic stickers (Debuffs adjacent jokers after 3 rounds of constant exposure, can decrease and stack)](#toxic-stickers-debuffs-adjacent-jokers-after-3-rounds-of-constant-exposure-can-decrease-and-stack)
     - [Supercritical stickers (Effects double each round for 5 rounds, destroys itself and adjacent Jokers afterwards)](#supercritical-stickers-effects-double-each-round-for-5-rounds-destroys-itself-and-adjacent-jokers-afterwards)
   - [Legendary Jokers](#legendary-jokers)
+  - [End of round sticker trigger priority](#end-of-round-sticker-trigger-priority)
+    - [End of round Joker effect trigger priority](#end-of-round-joker-effect-trigger-priority)
   - [Sticker synergies on the same card](#sticker-synergies-on-the-same-card)
     - [Eternal and Perishable](#eternal-and-perishable)
     - [Delayed and Perishable, Rental, Toxic or Supercritical](#delayed-and-perishable-rental-toxic-or-supercritical)
@@ -172,6 +174,34 @@ Supercritical Jokers provide emergent complexity by encouraging strategic cyclic
 ### Legendary Jokers
 
 Legendary Jokers do not spawn with any stickers (whether vanilla or non-vanilla) under any circumstances.
+
+### End of round sticker trigger priority
+
+Sticker effects that trigger at the end of the round do not do so simultaneously. The effect cascade will trigger in the following order, for each Joker from the leftmost to the rightmost one:
+
+1. Rental
+2. Perishable
+3. Supercritical
+4. Toxic
+5. Delayed
+
+#### End of round Joker effect trigger priority
+
+Certain Jokers whose effects trigger at the end of the round will do so before any sticker effects. This is an intended mod design decision to help preserve the vanilla integrity of these Jokers when faced with the mod's new stickers. These Jokers are:
+
+- **Gros Michel** (makes sense since becoming extinct allows the Cavendish to start showing up)
+- **Cavendish** (makes sense since the behavior becomes uniform like with Gros Michel)
+- **Gift Card** (makes sense because we want the other cards to get more sell value before the stickers get any chance of messing that up)
+
+Other Jokers with end of round effects would not lose vanilla integrity when interacting with the mod's new stickers. These include:
+
+- **Ancient Joker** (doesn't really matter because it doesn't affect anything apart from itself immediately before or after the sticker effects)
+- **Cloud 9** (doesn't make sense to apply before since the money reward panel shows up after all stickers are done doing their thing)
+- **Egg** (doesn't really matter because the egg needs to be sold anyways and sticker effects happen before the shop shows up)
+- **Golden Joker** (doesn't make sense to apply before since the money reward panel shows up after all stickers are done doing their thing)
+- **Rocket** (doesn't make sense because the money reward panel shows up after all stickers are done doing their thing)
+- **To the Moon** (doesn't make sense because the money reward panel shows up after all stickers are done doing their thing)
+- **To Do List** (doesn't really matter because it doesn't affect anything apart from itself immediately before or after the sticker effects)
 
 ### Sticker synergies on the same card
 

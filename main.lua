@@ -15,12 +15,12 @@ assert(SMODS.load_file("objects/stickers/magnet.lua"))()
 assert(SMODS.load_file("objects/stickers/delayed.lua"))()
 assert(SMODS.load_file("objects/stickers/toxic.lua"))()
 assert(SMODS.load_file("objects/stickers/supercritical.lua"))()
+assert(SMODS.load_file("objects/stickers/calculate.lua"))()
 
 assert(SMODS.load_file("objects/atlas/modicon.lua"))()
 assert(SMODS.load_file("objects/atlas/stickers.lua"))()
 assert(SMODS.load_file("objects/atlas/chips.lua"))()
 
-assert(SMODS.load_file("objects/jokers/calculate.lua"))()
 assert(SMODS.load_file("objects/jokers/overrides.lua"))()
 
 assert(SMODS.load_file("objects/spectrals/overrides.lua"))()
