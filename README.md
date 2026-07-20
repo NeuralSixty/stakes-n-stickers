@@ -1,6 +1,6 @@
 # Stakes 'n Stickers
 
-Rebalances gameplay dynamics with new Stakes and Stickers.
+Extensive Stake and Sticker difficulty system rework.
 
 Sticker art by Phylanth.
 
@@ -24,7 +24,7 @@ Sticker art by Phylanth.
   - [Legendary Jokers](#legendary-jokers)
   - [End of round sticker trigger priority](#end-of-round-sticker-trigger-priority)
     - [End of round Joker effect trigger priority](#end-of-round-joker-effect-trigger-priority)
-  - [Sticker synergies on the same card](#sticker-synergies-on-the-same-card)
+  - [Sticker synergies on the same Joker](#sticker-synergies-on-the-same-joker)
     - [Eternal and Perishable](#eternal-and-perishable)
     - [Delayed and Perishable, Rental, Toxic or Supercritical](#delayed-and-perishable-rental-toxic-or-supercritical)
     - [Eternal and Supercritical](#eternal-and-supercritical)
@@ -34,7 +34,7 @@ Sticker art by Phylanth.
 
 ## Summary
 
-Stakes 'n Stickers is a vanilla-plus rebalancing mod that focuses on adding and modifying Stakes in order to focus exclusively on Stickers. In other words, each Stake is associated with a Sticker. These new Stickers allow for more complex gameplay dynamics, especially on later Stakes.
+Stakes 'n Stickers is a vanilla-plus rebalancing mod that extensively reworks the difficulty system of Balatro by adding and modifying Stakes that focus primarily on Stickers. The objective of these new Stickers is to change the gameplay dynamics from punishment for simply having stickers that would normally only apply negative effects into complex and layered strategical thinking.
 
 Below is the theory that serves as the foundation for developing this mod. Feel free to read it to its entirety or jump straight into playing!
 
@@ -191,7 +191,7 @@ Certain Jokers whose effects trigger at the end of the round will do so before a
 
 - **Gros Michel** (makes sense since becoming extinct allows the Cavendish to start showing up)
 - **Cavendish** (makes sense since the behavior becomes uniform like with Gros Michel)
-- **Gift Card** (makes sense because we want the other cards to get more sell value before the stickers get any chance of messing that up)
+- **Gift Card** (makes sense because we want the other Jokers to get more sell value before the stickers get any chance of messing that up)
 
 Other Jokers with end of round effects would not lose vanilla integrity when interacting with the mod's new stickers. These include:
 
@@ -203,12 +203,12 @@ Other Jokers with end of round effects would not lose vanilla integrity when int
 - **To the Moon** (doesn't make sense because the money reward panel shows up after all stickers are done doing their thing)
 - **To Do List** (doesn't really matter because it doesn't affect anything apart from itself immediately before or after the sticker effects)
 
-### Sticker synergies on the same card
+### Sticker synergies on the same Joker
 
-Further emergent complexity is provided by the following sticker synergies on the same card, as well as some design decisions that led to the synergies existing:
+Further emergent complexity is provided by the following sticker synergies on the same Joker, as well as some design decisions that led to the synergies existing:
 
 - Eternal + Perishable (possible on this mod): Becomes negative when debuffed; Invisible Joker and Ankh cannot remove this negative on the copy.
-- Delayed + Perishable, Rental, Toxic or Supercritical: Perishable, Rental, Toxic and Supercritical do not come into effect until the card is active.
+- Delayed + Perishable, Rental, Toxic or Supercritical: Perishable, Rental, Toxic and Supercritical do not come into effect until the Joker is active.
 - Eternal + Supercritical: Cannot destroy itself. Repeats supercritical cycle.
 - Perishable + Supercritical: Supercritical effect after 5 rounds does not trigger if Joker would also be debuffed by then.
 
