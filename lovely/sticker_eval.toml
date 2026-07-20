@@ -18,14 +18,14 @@ position = "at"
 payload = '''
 local ret = {}
 if card.ability.rental and not (card.debuff and card.ability.sns_delayed and card.ability.sns_delay_tally ~= 0) then
-    -- ret[SMODS.Stickers.rental] = card:calculate_sticker(context, 'rental')
+    ret[SMODS.Stickers.rental] = card:calculate_sticker(context, 'rental')
 else
     if context.end_of_round and not context.repetition and not context.individual and card.ability and card.ability.set == "Joker" then
         SMODS.calculate_context({ rental_skipped = true, rental_skipped_card = card })
     end
 end
 if card.ability.perishable and not (card.debuff and card.ability.sns_delayed and card.ability.sns_delay_tally ~= 0) then
-    -- ret[SMODS.Stickers.perishable] = card:calculate_sticker(context, 'perishable')
+    ret[SMODS.Stickers.perishable] = card:calculate_sticker(context, 'perishable')
 else
     if context.end_of_round and not context.repetition and not context.individual and card.ability and card.ability.set == "Joker" then
         SMODS.calculate_context({ perishable_skipped = true, perishable_skipped_card = card })
@@ -39,14 +39,14 @@ else
     end
 end
 if card.ability.sns_toxic and not (card.debuff and card.ability.sns_delayed and card.ability.sns_delay_tally ~= 0) then
-    -- ret[SMODS.Stickers.sns_toxic] = card:calculate_sticker(context, 'sns_toxic')
+    ret[SMODS.Stickers.sns_toxic] = card:calculate_sticker(context, 'sns_toxic')
 else
     if context.end_of_round and not context.repetition and not context.individual and card.ability and card.ability.set == "Joker" then
         SMODS.calculate_context({ toxic_skipped = true, toxic_skipped_card = card })
     end
 end
 if card.ability.sns_supercritical and not (card.debuff and card.ability.sns_delayed and card.ability.sns_delay_tally ~= 0) then
-    -- ret[SMODS.Stickers.sns_supercritical] = card:calculate_sticker(context, 'sns_supercritical')
+    ret[SMODS.Stickers.sns_supercritical] = card:calculate_sticker(context, 'sns_supercritical')
 else
     if context.end_of_round and not context.repetition and not context.individual and card.ability and card.ability.set == "Joker" then
         SMODS.calculate_context({ supercritical_skipped = true, supercritical_skipped_card = card })

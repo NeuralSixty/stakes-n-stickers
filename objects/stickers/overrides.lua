@@ -24,7 +24,7 @@ SMODS.Sticker:take_ownership('perishable', {
   pre_calculate = function(self, card, context)
     if (context.rental_calculated and context.rental_card == card) or (context.rental_skipped and context.rental_skipped_card == card) then
       if card.ability and card.ability.set == "Joker" then
-        if not card.ability['perishable'] or (card.ability.perishable and card.debuff and card.ability.sns_delayed and card.ability.sns_delay_tally ~= 0) then
+        if not card.ability['perishable'] or (card.ability.perishable and (card.ability.debuff_sources and (card.ability.debuff_sources['toxic'] or card.ability.debuff_sources['perishable'])) or (card.debuff and card.ability.sns_delayed and card.ability.sns_delay_tally ~= 0)) then
           SMODS.calculate_context({ perishable_skipped = true, perishable_skipped_card = card })
         end
       end
@@ -98,7 +98,6 @@ SMODS.Sticker:take_ownership('rental', {
       )
       and not (card.debuff and card.ability.sns_delayed and card.ability.sns_delay_tally ~= 0)
       and not card.destroyed
-      and not (card.ability.debuff_sources and (card.ability.debuff_sources['toxic'] or card.ability.debuff_sources['perishable']))
     then
       card:calculate_rental()
 

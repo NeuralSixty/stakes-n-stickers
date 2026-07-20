@@ -25,8 +25,7 @@ SMODS.Sticker {
   end,
   calculate = function(self, card, context)
     if (context.perishable_calculated and context.perishable_card == card) or (context.perishable_skipped and context.perishable_skipped_card == card) then
-      if not (card.ability.debuff_sources and (card.ability.debuff_sources['toxic'] or card.ability.debuff_sources['perishable'])) then
-              local last_factor = card.ability.extra.current_factor;
+      local last_factor = card.ability.extra.current_factor;
 
       card.ability.extra.supercritical_stage = card.ability.extra.supercritical_stage + 1
 
@@ -119,7 +118,6 @@ SMODS.Sticker {
           return true
         end
       }
-      end
     end
   end,
   loc_vars = function(self, info_queue, card)
