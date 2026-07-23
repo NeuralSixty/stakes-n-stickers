@@ -31,7 +31,7 @@ SMODS.Sticker:take_ownership('perishable', {
     end
   end,
   calculate = function(self, card, context)
-    if not card.destroyed and not (card.ability.debuff_sources and (card.ability.debuff_sources['toxic'] or card.ability.debuff_sources['perishable'])) and (context.rental_calculated and context.rental_card == card) or (context.rental_skipped and context.rental_skipped_card == card) then
+    if not card.destroyed and not (card.ability.debuff_sources and (card.ability.debuff_sources['toxic'] or card.ability.debuff_sources['perishable'])) and ((context.rental_calculated and context.rental_card == card) or (context.rental_skipped and context.rental_skipped_card == card)) then
       card:sns_calculate_perishable()
 
       return {
