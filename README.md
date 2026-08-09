@@ -29,6 +29,7 @@ Sticker art by Phylanth.
     - [Delayed and Perishable, Rental, Toxic or Supercritical](#delayed-and-perishable-rental-toxic-or-supercritical)
     - [Eternal and Supercritical](#eternal-and-supercritical)
     - [Perishable and Supercritical](#perishable-and-supercritical)
+    - [Toxic and Rental, Perishable, Delayed or Supercritical](#toxic-and-rental-perishable-delayed-or-supercritical)
 - [Note on the former Red Stake effect](#note-on-the-former-red-stake-effect)
 - [Note on the former Blue Stake effect](#note-on-the-former-blue-stake-effect)
 
@@ -211,6 +212,7 @@ Further emergent complexity is provided by the following sticker synergies on th
 - Delayed + Perishable, Rental, Toxic or Supercritical: Perishable, Rental, Toxic and Supercritical do not come into effect until the Joker is active.
 - Eternal + Supercritical: Cannot destroy itself. Repeats supercritical cycle.
 - Perishable + Supercritical: Supercritical effect after 5 rounds does not trigger if Joker would also be debuffed by then.
+- Toxic + Rental, Perishable, Delayed or Supercritical: Jokers debuffed by toxicity will also have these stickers disabled.
 
 #### Eternal and Perishable
 
@@ -229,6 +231,10 @@ Repeating the supercritical cycle is an opportunity for experienced players to e
 #### Perishable and Supercritical
 
 As an alternate access to the Supercritical without overwhelming a less experienced player, this can still provide plenty of complexity.
+
+#### Toxic and Rental, Perishable, Delayed or Supercritical
+
+Rental, Perishable, Delayed and Supercritical are tallying sticker effects that would allow the player a significantly wider strategic surface if allowed to be manipulated by the Toxic effect. For instance, a well-timed switch of a Toxic Joker to the left side of a Supercritical Joker would prevent the Supercritical effect from triggering and thus avoid a possible blunder.
 
 ## Note on the former Red Stake effect
 

@@ -723,7 +723,8 @@ return {
         name = "Debuffed",
         text = {
           "All abilities",
-          "and sticker effects",
+          "and tallying",
+          "sticker effects",
           "are disabled",
           "{C:inactive,s:0.9}(Does not affect Delayed)"
         }
