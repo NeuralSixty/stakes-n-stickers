@@ -116,6 +116,8 @@ function Card:sns_calculate_perishable()
     if self.ability.perish_tally == 1 then
       self.ability.perish_tally = 0
       self.ability.debuff_sources['perishable'] = true
+      self.ability.sns_prevent_debuff_draw = true
+      SMODS.debuff_card(self, true, "perishable")
       
       card_eval_status_text(self, 'extra', nil, nil, nil,
         {
@@ -123,6 +125,7 @@ function Card:sns_calculate_perishable()
           colour = G.C.FILTER,
           delay = 0.45,
           extrafunc = function()
+            self.ability.sns_prevent_debuff_draw = false
             SMODS.debuff_card(self, true, "perishable")
 
             if self.ability.eternal then

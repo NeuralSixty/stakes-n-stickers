@@ -39,6 +39,21 @@ SMODS.Sticker {
           card.ability.extra.current_factor = card.ability.extra.original_factor
           card.ability.extra.delta_factor = card.ability.extra.current_factor - last_factor
 
+          if left_joker and not left_joker.destroyed and not left_joker.ability.eternal then
+            left_joker.destroyed = true
+
+            card_eval_status_text(left_joker, 'extra', nil, nil, nil,
+              {
+                message = localize('k_destroyed_ex'),
+                colour = G.C.FILTER,
+                delay = 0.45,
+                extrafunc = function()
+                  SMODS.destroy_cards(left_joker, nil, true)
+                end
+              }
+            )
+          end
+
           if not card.ability.eternal then
             -- Why do we need this, you ask? It looks like if we want to time the card destroy animation
             -- with the card_eval_status_text, then it's gotta be part of the delay.
@@ -58,29 +73,13 @@ SMODS.Sticker {
               }
             )
           else
+            card.ability.extra.supercritical_stage = 0
+
             card_eval_status_text(card, 'extra', nil, nil, nil,
               {
                 message = localize('k_supercritical_reset'),
                 colour = G.C.FILTER,
-                delay = 0.45,
-                extrafunc = function()
-                  card.ability.extra.supercritical_stage = 0
-                end
-              }
-            )
-          end
-
-          if left_joker and not left_joker.destroyed and not left_joker.ability.eternal then
-            left_joker.destroyed = true
-
-            card_eval_status_text(left_joker, 'extra', nil, nil, nil,
-              {
-                message = localize('k_destroyed_ex'),
-                colour = G.C.FILTER,
-                delay = 0.45,
-                extrafunc = function()
-                  SMODS.destroy_cards(left_joker, nil, true)
-                end
+                delay = 0.45
               }
             )
           end

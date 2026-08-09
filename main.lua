@@ -6,6 +6,8 @@ assert(SMODS.load_file("objects/vanilla/overrides.lua"))()
 
 assert(SMODS.load_file("objects/smods/overrides.lua"))()
 
+assert(SMODS.load_file("objects/drawstep/debuff.lua"))()
+
 assert(SMODS.load_file("objects/stakes/plastic.lua"))()
 assert(SMODS.load_file("objects/stakes/clay.lua"))()
 assert(SMODS.load_file("objects/stakes/ceramic.lua"))()

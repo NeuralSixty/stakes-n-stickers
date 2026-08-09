@@ -34,7 +34,13 @@ local calculate_toxic_exposure_increase = function(card, left_joker, right_joker
       end
 
       if left_joker.ability.extra.toxic_stack >= 3 then
-        left_joker.ability.debuff_sources['toxic'] = true
+        left_joker.ability.extra.toxic_stack = 0
+
+        if not (left_joker.ability.sns_delayed and left_joker.ability.sns_delay_tally ~= 0) then
+          left_joker.ability.sns_prevent_debuff_draw = true
+        end
+
+        SMODS.debuff_card(left_joker, true, "toxic")
 
         card_eval_status_text(left_joker, 'extra', nil, nil, nil,
           {
@@ -42,10 +48,10 @@ local calculate_toxic_exposure_increase = function(card, left_joker, right_joker
             colour = G.C.FILTER,
             delay = 0.45,
             extrafunc = function()
-              left_joker.ability.extra.toxic_stack = 0
               left_joker:remove_sticker('sns_toxic_stack_two')
               left_joker:remove_sticker('sns_toxic_stack_one')
 
+              left_joker.ability.sns_prevent_debuff_draw = false
               SMODS.debuff_card(left_joker, true, "toxic")
 
               if (left_joker.ability.eternal) then
@@ -89,7 +95,13 @@ local calculate_toxic_exposure_increase = function(card, left_joker, right_joker
       end
 
       if right_joker.ability.extra.toxic_stack >= 3 then
-        right_joker.ability.debuff_sources['toxic'] = true
+        right_joker.ability.extra.toxic_stack = 0
+
+        if not (right_joker.ability.sns_delayed and right_joker.ability.sns_delay_tally ~= 0) then
+          right_joker.ability.sns_prevent_debuff_draw = true
+        end
+
+        SMODS.debuff_card(right_joker, true, "toxic")
 
         card_eval_status_text(right_joker, 'extra', nil, nil, nil,
           {
@@ -97,10 +109,10 @@ local calculate_toxic_exposure_increase = function(card, left_joker, right_joker
             colour = G.C.FILTER,
             delay = 0.45,
             extrafunc = function()
-              right_joker.ability.extra.toxic_stack = 0
               right_joker:remove_sticker('sns_toxic_stack_two')
               right_joker:remove_sticker('sns_toxic_stack_one')
 
+              right_joker.ability.sns_prevent_debuff_draw = false
               SMODS.debuff_card(right_joker, true, "toxic")
 
               if (right_joker.ability.eternal) then
@@ -118,7 +130,7 @@ local calculate_toxic_exposure_decrease = function(card, left_joker, right_joker
   if card.ability.extra.toxic_stack > 0 and ((card.debuff and card.ability.perishable and card.ability.perish_tally == 0) or ((not left_joker or (left_joker and not left_joker.ability.sns_toxic or (left_joker.ability.sns_delayed and left_joker.ability.sns_delay_tally > 0))) and (not right_joker or (right_joker and not right_joker.ability.sns_toxic or (right_joker.ability.sns_delayed and right_joker.ability.sns_delay_tally > 0))))) then
     card.ability.extra.toxic_stack = card.ability.extra.toxic_stack - 1
 
-    if card.ability.extra.toxic_stack == 0 then
+    if card.ability.extra.toxic_stack == 0 and not card.destroyed then
       card_eval_status_text(card, 'extra', nil, nil, nil,
         {
           message = localize('k_toxic_minus_one'),
@@ -132,7 +144,7 @@ local calculate_toxic_exposure_decrease = function(card, left_joker, right_joker
       )
     end
 
-    if card.ability.extra.toxic_stack == 1 then
+    if card.ability.extra.toxic_stack == 1 and not card.destroyed then
       card_eval_status_text(card, 'extra', nil, nil, nil,
         {
           message = localize('k_toxic_minus_one'),
@@ -146,7 +158,7 @@ local calculate_toxic_exposure_decrease = function(card, left_joker, right_joker
       )
     end
 
-    if card.ability.extra.toxic_stack == 2 then
+    if card.ability.extra.toxic_stack == 2 and not card.destroyed then
       card_eval_status_text(card, 'extra', nil, nil, nil,
         {
           message = localize('k_toxic_minus_one'),

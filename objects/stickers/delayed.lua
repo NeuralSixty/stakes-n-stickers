@@ -41,15 +41,21 @@ SMODS.Sticker {
           end
 
           if not (card.ability.debuff_sources and (card.ability.debuff_sources['toxic'] or card.ability.debuff_sources['perishable'])) then
+            card.ability.sns_delay_tally = 0
+            card.ability.sns_delayed = nil
+            card.ability.sns_keep_debuff_draw = true
+            SMODS.debuff_card(card, false, "delay")
+            card:add_sticker('sns_delayed', true)
+
             card_eval_status_text(card, 'extra', nil, nil, nil,
               {
                 message = localize('k_active_ex'),
                 colour = G.C.FILTER,
                 delay = 0.45,
                 extrafunc = function()
-                  card.ability.sns_delay_tally = 0
-                  card.ability.sns_delayed = nil
+                  card.ability.sns_keep_debuff_draw = false
                   SMODS.debuff_card(card, false, "delay")
+                  card:remove_sticker('sns_delayed')
                 end
               }
             )
