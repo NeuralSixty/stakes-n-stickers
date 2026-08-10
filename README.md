@@ -1,6 +1,6 @@
 # Stakes 'n Stickers
 
-Extensive Stake and Sticker difficulty system rework.
+Vanilla+ Stake and Sticker difficulty system rework.
 
 Sticker art by Phylanth.
 

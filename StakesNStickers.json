@@ -6,7 +6,7 @@
     "NeuralSixty",
     "Phylanth"
   ],
-  "description": "Rebalances gameplay dynamics with new Stakes and Stickers",
+  "description": "Vanilla+ Stake and Sticker difficulty system rework",
   "prefix": "sns",
   "main_file": "main.lua",
   "priority": 0,
