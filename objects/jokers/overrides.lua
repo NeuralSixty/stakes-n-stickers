@@ -3694,42 +3694,19 @@ SMODS.Joker:take_ownership('throwback', {
   sns_delayed_compat = true,
   sns_toxic_compat = true,
   sns_supercritical_compat = true,
-  config = {
-    extra = {
-      current_factor = 1,
-      original_factor = 1,
-      delta_factor = 0,
-      toxic_stack = 0,
-      supercritical_stage = 0,
-      xmult = 0.25,
-      sum = 1
-    }
-  },
+  config = { extra = { current_factor = 1, original_factor = 1, delta_factor = 0, toxic_stack = 0, supercritical_stage = 0, xmult = 0.25 } },
   loc_vars = function(self, info_queue, card)
-    return {
-      vars = {
-        card.ability.extra.xmult * card.ability.extra.current_factor,
-        card.ability.extra.sum
-      }
-    }
+    return { vars = { card.ability.extra.xmult * card.ability.extra.current_factor, 1 + G.GAME.skips * card.ability.extra.xmult * card.ability.extra.current_factor } }
   end,
   calculate = function(self, card, context)
     if context.skip_blind and not context.blueprint then
-      card.ability.extra.sum = card.ability.extra.sum + (card.ability.extra.xmult * card.ability.extra.current_factor)
-
       return {
-        message = localize {
-          type = 'variable',
-          key = 'a_xmult',
-          vars = {
-            card.ability.extra.sum
-          }
-        }
+        message = localize { type = 'variable', key = 'a_xmult', vars = { 1 + G.GAME.skips * card.ability.extra.xmult * card.ability.extra.current_factor } }
       }
     end
     if context.joker_main then
       return {
-        xmult = card.ability.extra.sum
+        xmult = 1 + G.GAME.skips * card.ability.extra.xmult * card.ability.extra.current_factor
       }
     end
   end,
