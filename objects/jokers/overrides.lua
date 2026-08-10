@@ -2744,7 +2744,13 @@ SMODS.Joker:take_ownership('fortune_teller', {
   calculate = function(self, card, context)
     if context.using_consumeable and not context.blueprint and context.consumeable.ability.set == "Tarot" then
       return {
-        message = localize { type = 'variable', key = 'a_mult', vars = { G.GAME.consumeable_usage_total.tarot } },
+        message = localize {
+          type = 'variable',
+          key = 'a_mult',
+          vars = {
+            card.ability.extra.mult * (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.tarot or 0) * card.ability.extra.current_factor
+          }
+        },
       }
     end
     if context.joker_main then
