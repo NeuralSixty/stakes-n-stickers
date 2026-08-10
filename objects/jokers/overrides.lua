@@ -1773,7 +1773,7 @@ SMODS.Joker:take_ownership('todo_list', {
         end
       }
     end
-    if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+    if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint and not card.destroyed then
       local _poker_hands = {}
       for handname, _ in pairs(G.GAME.hands) do
         if SMODS.is_poker_hand_visible(handname) and handname ~= card.ability.extra.poker_hand then
