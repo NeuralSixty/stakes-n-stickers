@@ -3,7 +3,7 @@ SMODS.DrawStep:take_ownership('debuff', {
   order = 70,
   func = function(self)
     if (
-        self.debuff and self.ability.debuff_sources and (self.ability.debuff_sources['toxic'] or self.ability.debuff_sources['perishable'] or (self.ability.sns_delayed and self.ability.sns_delay_tally > 0) or self.ability.crimson_heart_chosen) and not self.ability.sns_prevent_debuff_draw
+        (self.ability.set ~= "Joker" and self.debuff) or (self.ability.set == "Joker" and self.debuff and self.ability.debuff_sources and (self.ability.debuff_sources['toxic'] or self.ability.debuff_sources['perishable'] or (self.ability.sns_delayed and self.ability.sns_delay_tally > 0) or self.ability.crimson_heart_chosen) and not self.ability.sns_prevent_debuff_draw)
     ) or (
         not self.debuff and self.ability.sns_keep_debuff_draw
     ) then
