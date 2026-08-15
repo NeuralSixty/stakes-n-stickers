@@ -2492,33 +2492,51 @@ SMODS.Joker:take_ownership('turtle_bean', {
   sns_delayed_compat = true,
   sns_toxic_compat = true,
   sns_supercritical_compat = true,
-  config = { extra = { current_factor = 1, original_factor = 1, delta_factor = 0, toxic_stack = 0, supercritical_stage = 0, h_size = 5, h_mod = 1 } },
+  config = { extra = { current_factor = 1, original_factor = 1, delta_factor = 0, toxic_stack = 0, supercritical_stage = 0, original_h_size = 5, h_size = 5, original_h_mod = 1, h_mod = 1, times_eaten = 0 } },
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.extra.h_size * card.ability.extra.current_factor, card.ability.extra.h_mod * card.ability.extra.current_factor } }
+    return { vars = { card.ability.extra.h_size, card.ability.extra.h_mod } }
   end,
   calculate = function(self, card, context)
     if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
-      if (card.ability.extra.h_size * card.ability.extra.current_factor) - (card.ability.extra.h_mod * card.ability.extra.current_factor) <= 0 then
+      if not card.destroyed and ((card.ability.extra.h_size) - (card.ability.extra.h_mod) <= 0) then
         SMODS.destroy_cards(card, nil, nil, true)
         return {
           message = localize('k_eaten_ex'),
           colour = G.C.FILTER
         }
       else
-        card.ability.extra.h_size = card.ability.extra.h_size - card.ability.extra.h_mod
-        G.hand:change_size(-(card.ability.extra.h_mod * card.ability.extra.current_factor))
+        local current_h_size = card.ability.extra.h_size
+
+        -- Yeah I know this is disgusting, but I don't really care, it gets the job done.
+        -- But let me at least explain wtf this is doing:
+        -- Condition 1: Checks if it's the first end of round for a Joker without Delayed or Supercritical, so that it tallies from +5 to +4 hand size.
+        -- Condition 2: Checks if it's the end of round after the end of round that turned a non-Supercritical Delayed Joker active, so that it can continue to be "eaten" after the aforementioned end of round.
+        -- Condition 3: Same thing as condition 2 but for Supercritical Delayed Jokers.
+        if (card.ability.extra.h_size == card.ability.extra.original_h_size) or (card.ability.extra.current_factor == 2 and card.ability.extra.original_factor == 2 and card.ability.extra.h_size == 10) or (card.ability.extra.current_factor == 4 and card.ability.extra.original_factor == 2) then
+          card.ability.extra.times_eaten = 1
+        else
+          card.ability.extra.times_eaten = card.ability.extra.times_eaten + 1
+        end
+
+        card.ability.extra.h_mod = card.ability.extra.original_h_mod * card.ability.extra.current_factor
+        card.ability.extra.h_size = (card.ability.extra.original_h_size * card.ability.extra.current_factor) - (card.ability.extra.h_mod * (card.ability.extra.times_eaten))
+
+        G.hand:change_size(card.ability.extra.h_size - current_h_size)
+
         return {
-          message = localize { type = 'variable', key = 'a_handsize_minus', vars = { card.ability.extra.h_mod * card.ability.extra.current_factor } },
+          message = localize { type = 'variable', key = 'a_handsize_minus', vars = { card.ability.extra.h_mod } },
           colour = G.C.FILTER
         }
       end
     end
   end,
   add_to_deck = function(self, card, from_debuff)
-    G.hand:change_size(card.ability.extra.h_size * card.ability.extra.current_factor)
+    card.ability.extra.h_mod = card.ability.extra.original_h_mod * card.ability.extra.current_factor
+    card.ability.extra.h_size = card.ability.extra.original_h_size * card.ability.extra.current_factor
+    G.hand:change_size(card.ability.extra.h_size)
   end,
   remove_from_deck = function(self, card, from_debuff)
-    G.hand:change_size(-(card.ability.extra.h_size * card.ability.extra.current_factor))
+    G.hand:change_size(-card.ability.extra.h_size)
   end
 }, true)
 
@@ -2775,7 +2793,7 @@ SMODS.Joker:take_ownership('juggler', {
     return { vars = { card.ability.extra.h_size * card.ability.extra.current_factor } }
   end,
   calculate = function(self, card, context)
-    if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+    if not card.debuff and context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
       -- There's a case where the Joker gets destroyed and the hand size is shown wrong.
       -- Even though the hand size gets recalculated in the next round, it's still not pretty.
       -- TODO: Find a way to take care of this visual bug.
@@ -2808,7 +2826,7 @@ SMODS.Joker:take_ownership('drunkard', {
     }
   end,
   calculate = function(self, card, context)
-    if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+    if not card.debuff and context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
       G.GAME.round_resets.discards = G.GAME.round_resets.discards +
           (card.ability.extra.d_size * card.ability.extra.delta_factor)
       ease_discard(card.ability.extra.d_size * card.ability.extra.delta_factor)
@@ -3591,7 +3609,7 @@ SMODS.Joker:take_ownership('troubadour', {
     return { vars = { card.ability.extra.h_size * card.ability.extra.current_factor, -card.ability.extra.h_plays } }
   end,
   calculate = function(self, card, context)
-    if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+    if not card.debuff and context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
       G.hand:change_size(card.ability.extra.h_size * card.ability.extra.delta_factor)
     end
   end,
@@ -4170,7 +4188,7 @@ SMODS.Joker:take_ownership('merry_andy', {
     return { vars = { card.ability.extra.d_size * card.ability.extra.current_factor, card.ability.extra.h_size } }
   end,
   calculate = function(self, card, context)
-    if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+    if not card.debuff and context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
       G.GAME.round_resets.discards = G.GAME.round_resets.discards +
           (card.ability.extra.d_size * card.ability.extra.delta_factor)
       ease_discard(card.ability.extra.d_size * card.ability.extra.delta_factor)
